@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Courses | Agoura High School IB Program</title>
+    <meta name="description" content="IB classes offered at Agoura High School.">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="index.html" aria-label="Agoura High School IB home"><span class="brand-mark">IB</span><span><strong>Agoura High School</strong><small>International Baccalaureate</small></span></a>
+      <nav class="nav" aria-label="Primary">
+        <a href="index.html">Home</a><a href="diploma.html">Diploma</a><a class="is-active" href="courses.html">Courses</a><a href="planner.html">Schedule Builder</a><a href="exams.html">Exams</a>
+      </nav>
+    </header>
+    <main>
+      <section class="page-hero">
+        <p class="eyebrow">Course Catalog</p>
+        <h1>Classes offered at AHS</h1>
+        <p>Explore the IB subjects available to juniors and seniors, how each course contributes to the diploma, and what kind of work students should expect.</p>
+      </section>
+      <section class="section">
+        <div class="catalog-controls" aria-label="Course filters">
+          <button class="chip is-active" data-filter="all" type="button">All</button>
+          <button class="chip" data-filter="hl" type="button">HL</button>
+          <button class="chip" data-filter="sl" type="button">SL</button>
+          <button class="chip" data-filter="core" type="button">Core</button>
+        </div>
+        <div class="course-grid" id="courseGrid"></div>
+      </section>
+      <section class="section band two-column">
+        <div>
+          <p class="eyebrow">Sequencing</p>
+          <h2>Why the two-year plan matters</h2>
+          <p>HL classes generally span both junior and senior year, so they should be treated as a two-year commitment. SL courses are often one-year courses and can help students complete subject groups, balance workload, or explore a specific academic interest.</p>
+          <p>Some classes have prerequisites or recommended prior coursework. Math placement, science sequence, language level, and arts experience should be reviewed with counselors and teachers before finalizing a plan.</p>
+        </div>
+        <div class="callout"><h3>Planning tip</h3><p>Use the schedule builder after reading the catalog. It automatically places HL classes in both years and lets you add AP or CP courses in the remaining space.</p></div>
+      </section>
+    </main>
+    <footer><p>Agoura High School IB Program</p><a href="planner.html">Build a schedule</a></footer>
+    <script src="app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Schedule Builder | Agoura High School IB Program</title>
+    <meta name="description" content="Build an 11th and 12th grade IB Diploma schedule.">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="index.html" aria-label="Agoura High School IB home"><span class="brand-mark">IB</span><span><strong>Agoura High School</strong><small>International Baccalaureate</small></span></a>
+      <nav class="nav" aria-label="Primary">
+        <a href="index.html">Home</a><a href="diploma.html">Diploma</a><a href="courses.html">Courses</a><a class="is-active" href="planner.html">Schedule Builder</a><a href="exams.html">Exams</a>
+      </nav>
+    </header>
+    <main>
+      <section class="page-hero compact">
+        <p class="eyebrow">Schedule Builder</p>
+        <h1>Build an 11th-12th grade IB plan</h1>
+        <p>Drag IB classes into either grade. HL classes automatically fill both 11th and 12th grade because they are two-year courses. Add AP or CP courses to fill open spaces around the IB diploma plan.</p>
+      </section>
+      <section class="section planner-section">
+        <div class="planner-tools">
+          <label class="search"><span>Search IB classes</span><input id="courseSearch" type="search" placeholder="English, History, SEHS..."></label>
+          <form class="custom-course" id="customCourseForm">
+            <label><span>Other AP or CP class</span><input id="customCourseName" type="text" placeholder="AP Government, CP Economics..."></label>
+            <select id="customCourseYear" aria-label="Grade for other AP or CP class"><option value="11">11th</option><option value="12">12th</option></select>
+            <button class="button secondary" type="submit">Add</button>
+          </form>
+          <div class="tool-buttons"><button class="button secondary" id="samplePlan" type="button">Load sample</button><button class="button secondary" id="resetPlan" type="button">Reset</button><button class="button primary" id="printPlan" type="button">Print</button></div>
+        </div>
+        <div class="counter-row" aria-label="HL and SL counters">
+          <div class="counter"><strong id="hlCounter">0/3</strong><span>HL courses selected</span></div>
+          <div class="counter"><strong id="slCounter">0/3</strong><span>SL courses selected</span></div>
+        </div>
+        <div class="planner-layout">
+          <aside class="course-bank" aria-label="Draggable course list">
+            <h3>Available IB Classes</h3>
+            <p>Drag a class into a grade column. Double-click any scheduled class to remove it.</p>
+            <div id="bankList" class="bank-list"></div>
+          </aside>
+          <div class="schedule-board" aria-label="Two year schedule">
+            <div class="grade-column"><div class="grade-heading"><h3>11th Grade</h3><span>IB Year 1</span></div><div class="dropzone" data-year="11" aria-label="11th grade courses"></div></div>
+            <div class="grade-column"><div class="grade-heading"><h3>12th Grade</h3><span>IB Year 2</span></div><div class="dropzone" data-year="12" aria-label="12th grade courses"></div></div>
+          </div>
+          <aside class="checks" aria-label="Diploma checks"><h3>Diploma checks</h3><div id="diplomaChecks"></div></aside>
+        </div>
+      </section>
+    </main>
+    <footer><p>Agoura High School IB Program</p><a href="courses.html">Review courses</a></footer>
+    <script src="app.js"></script>
+  </body>
+</html>
