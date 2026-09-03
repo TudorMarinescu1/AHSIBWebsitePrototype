@@ -585,22 +585,6 @@ document.querySelectorAll("[data-filter]").forEach((button) => {
 if (searchInput) searchInput.addEventListener("input", renderBank);
 if (customCourseForm) customCourseForm.addEventListener("submit", addCustomCourse);
 
-const samplePlanButton = document.querySelector("#samplePlan");
-if (samplePlanButton) {
-  samplePlanButton.addEventListener("click", () => {
-    plan = {
-      11: ["english-hl", "spanish-hl", "history-hl", "math-aa-sl", "ess-sl", "film-hl", "custom-1"],
-      12: ["english-hl", "spanish-hl", "history-hl", "sehs-sl", "psychology-sl", "film-hl", "custom-2"],
-      custom: [
-        { id: "custom-1", title: "AP Computer Science", type: "AP" },
-        { id: "custom-2", title: "CP Economics", type: "CP" },
-      ],
-    };
-    renderBank();
-    renderSchedule();
-  });
-}
-
 const resetPlanButton = document.querySelector("#resetPlan");
 if (resetPlanButton) {
   resetPlanButton.addEventListener("click", () => {
