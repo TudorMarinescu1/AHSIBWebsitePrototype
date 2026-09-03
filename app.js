@@ -239,8 +239,10 @@ const slCounter = document.querySelector("#slCounter");
 const customCourseForm = document.querySelector("#customCourseForm");
 const customCourseName = document.querySelector("#customCourseName");
 const customCourseYear = document.querySelector("#customCourseYear");
+const yearTabs = [...document.querySelectorAll("[data-show-year]")];
 
 let plan = loadPlan();
+let activeMobileYear = "11";
 
 function tagClass(level) {
   if (level === "Core") return "core";
@@ -324,7 +326,7 @@ function renderBank() {
     return !selected.has(course.id) && searchable.includes(query);
   });
 
-  bankList.innerHTML = available.map((course) => draggableCard(course, "bank-card")).join("");
+  bankList.innerHTML = available.map((course) => draggableCard(course, "bank-card", true)).join("");
 
   if (!available.length) {
     bankList.innerHTML = `<p class="empty-message">No matching unscheduled IB classes.</p>`;
@@ -333,11 +335,19 @@ function renderBank() {
   attachDragHandlers();
 }
 
-function draggableCard(course, className) {
+function draggableCard(course, className, includeAddButtons = false) {
   return `
     <div class="${className}" draggable="true" data-course-id="${course.id}">
       <strong>${course.title}</strong>
       <span>${course.level} | ${course.group.replace("Group ", "G")}</span>
+      ${
+        includeAddButtons
+          ? `<div class="mobile-add-actions">
+              <button type="button" data-add-course="${course.id}" data-add-year="11">Add to 11th</button>
+              <button type="button" data-add-course="${course.id}" data-add-year="12">Add to 12th</button>
+            </div>`
+          : ""
+      }
     </div>
   `;
 }
@@ -369,6 +379,8 @@ function renderSchedule() {
   });
 
   attachDragHandlers();
+  attachMobileAddHandlers();
+  updateMobileYearView();
   renderChecks();
   savePlan();
 }
@@ -381,6 +393,16 @@ function attachDragHandlers() {
 
     card.addEventListener("dblclick", () => {
       removeFromPlan(card.dataset.courseId);
+    });
+  });
+}
+
+function attachMobileAddHandlers() {
+  document.querySelectorAll("[data-add-course]").forEach((button) => {
+    button.addEventListener("click", (event) => {
+      event.stopPropagation();
+      activeMobileYear = button.dataset.addYear;
+      addToPlan(button.dataset.addCourse, button.dataset.addYear);
     });
   });
 }
@@ -400,6 +422,25 @@ dropzones.forEach((zone) => {
   });
 });
 
+yearTabs.forEach((tab) => {
+  tab.addEventListener("click", () => {
+    activeMobileYear = tab.dataset.showYear;
+    updateMobileYearView();
+  });
+});
+
+function updateMobileYearView() {
+  yearTabs.forEach((tab) => {
+    tab.classList.toggle("is-active", tab.dataset.showYear === activeMobileYear);
+  });
+
+  document.querySelectorAll(".grade-column").forEach((column) => {
+    const zone = column.querySelector(".dropzone");
+    if (!zone) return;
+    column.classList.toggle("is-mobile-active", zone.dataset.year === activeMobileYear);
+  });
+}
+
 if (bankList) {
   const bankDropTarget = bankList.closest(".course-bank");
 
@@ -418,6 +459,14 @@ if (bankList) {
 }
 
 function addToPlan(courseId, year) {
+  if (courseId.startsWith("custom-")) {
+    plan["11"] = plan["11"].filter((id) => id !== courseId);
+    plan["12"] = plan["12"].filter((id) => id !== courseId);
+    plan[year].push(courseId);
+    renderSchedule();
+    return;
+  }
+
   const course = getCourse(courseId);
   if (!course) return;
 
